@@ -1,0 +1,22 @@
+[project]
+name = "ecom-funnel-retention"
+version = "1.0.0"
+description = "Воронка и retention интернет-магазина: PostgreSQL + DataLens"
+requires-python = ">=3.12"
+dependencies = [
+    "psycopg[binary]>=3.2",
+    "pandas>=2.2",
+    "kaggle>=1.6",
+]
+
+[dependency-groups]
+dev = ["pytest>=8", "ruff>=0.6"]
+
+[tool.ruff]
+line-length = 100
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "UP", "B"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
