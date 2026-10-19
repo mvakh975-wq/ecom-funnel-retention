@@ -6,7 +6,7 @@ SQL-анализ 2,76 млн событий в PostgreSQL: собственна�
 
 **[→ Открыть дашборд в DataLens](https://datalens.yandex/07arbroepa4mj)**
 
-![Дашборд: KPI, воронка, конверсия по неделям, retention по когортам](docs/dashboard.png)
+![Дашборд: KPI, конверсия шагов воронки, конверсия по неделям, retention по когортам](docs/dashboard.png)
 
 ## Главное
 
