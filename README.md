@@ -1,5 +1,7 @@
 # Воронка и retention интернет-магазина
 
+[![CI](https://github.com/mvakh975-wq/ecom-funnel-retention/actions/workflows/ci.yml/badge.svg)](https://github.com/mvakh975-wq/ecom-funnel-retention/actions/workflows/ci.yml)
+
 **Где интернет-магазин теряет посетителей на пути к покупке и возвращаются ли они?**
 SQL-анализ 2,76 млн событий в PostgreSQL: собственная схема БД, упорядоченная воронка,
 сессии, недельные когорты retention и публичный дашборд в Yandex DataLens.
