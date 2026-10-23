@@ -1,10 +1,18 @@
 -- Воронка «просмотр → корзина → покупка» на уровне посетителя за весь период.
 -- Шаг засчитывается, только если он случился не раньше предыдущего:
 -- покупка без корзины или корзина без просмотра в воронку не попадают.
-with first_view as (
+-- Время первого просмотра ищется только у тех, кто клал товар в корзину:
+-- остальные дальше первого шага не проходят, их достаточно посчитать.
+with viewers as (
+    select count(distinct visitor_id) as visitors
+    from rr.events
+    where event_type = 'view'
+),
+first_view as (
     select visitor_id, min(event_ts) as view_ts
     from rr.events
     where event_type = 'view'
+      and visitor_id in (select visitor_id from rr.events where event_type = 'addtocart')
     group by visitor_id
 ),
 first_cart as (
@@ -25,7 +33,7 @@ purchase as (
      and e.event_ts >= c.cart_ts
 ),
 steps as (
-    select 1 as step_no, count(*) as visitors from first_view
+    select 1 as step_no, visitors from viewers
     union all
     select 2, count(*) from first_cart
     union all

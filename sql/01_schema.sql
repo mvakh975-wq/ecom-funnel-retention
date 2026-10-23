@@ -38,4 +38,6 @@ create table rr.events (
         unique nulls not distinct (event_ts, visitor_id, event_type, item_id, transaction_id)
 );
 create index on rr.events (visitor_id, event_ts);
-create index on rr.events (event_type);
+-- тип события первым: запрос берёт из индекса только нужный шаг воронки, уже
+-- упорядоченный по посетителю, и не читает саму таблицу (Index Only Scan)
+create index on rr.events (event_type, visitor_id, event_ts);
