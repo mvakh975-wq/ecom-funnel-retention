@@ -1,5 +1,6 @@
 -- Чем покупатели отличаются от остальных: сессии и просмотры на посетителя,
--- медианное число просмотров до первой покупки.
+-- медианное число просмотров до первой покупки. Распределения с тяжёлым хвостом
+-- (единичные посетители с тысячами событий), поэтому рядом со средними — медианы.
 with first_purchase as (
     select visitor_id, min(event_ts) as purchase_ts
     from rr.events
@@ -25,6 +26,8 @@ select case when is_buyer then 'Покупатели' else 'Не покупал�
        count(*) as visitors,
        round(avg(s.sessions), 2) as avg_sessions,
        round(avg(v.views), 2) as avg_views,
+       percentile_cont(0.5) within group (order by s.sessions) as median_sessions,
+       percentile_cont(0.5) within group (order by v.views) as median_views,
        percentile_cont(0.5) within group (order by v.views_before_purchase)
            filter (where is_buyer) as median_views_before_purchase
 from per_visitor v

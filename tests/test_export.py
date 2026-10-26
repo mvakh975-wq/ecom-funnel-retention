@@ -11,6 +11,8 @@ def test_buyers_vs_non_buyers(conn):
     assert df["visitors"].tolist() == [3, 3]
     assert df["avg_sessions"].tolist() == pytest.approx([4 / 3, 5 / 3], abs=1e-2)
     assert df["avg_views"].tolist() == pytest.approx([5 / 3, 5 / 3], abs=1e-2)
+    assert df["median_sessions"].tolist() == [1, 2]
+    assert df["median_views"].tolist() == [1, 2]
     # просмотров до первой покупки: V1 — 2, V3 — 0, V5 — 1
     assert df.loc["Покупатели", "median_views_before_purchase"] == 1
     assert pd.isna(df.loc["Не покупали", "median_views_before_purchase"])
